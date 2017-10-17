@@ -2,6 +2,8 @@ package com.jeldrik.surfweatherwidget.common.Dagger.modules;
 
 import android.app.Application;
 
+import com.jeldrik.surfweatherwidget.presentation.presenter.MainPresenter;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -23,4 +25,5 @@ public class AppModule {
     Application providesApplication() {
         return mApplication;
     }
+
 }
