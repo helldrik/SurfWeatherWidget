@@ -1,5 +1,7 @@
 package com.jeldrik.surfweatherwidget.data.datasource;
 
+import javax.inject.Inject;
+
 /**
  * Created by jeldrik on 17/10/17.
  */
@@ -8,7 +10,8 @@ public class LocalLocationDataSource {
 
     private String city;
     private String country;
-    private String[] location;
+    private String longitude;
+    private String latitude;
 
     public LocalLocationDataSource() {
         //empty constructor
@@ -30,11 +33,19 @@ public class LocalLocationDataSource {
         this.country = country;
     }
 
-    public String[] getLocation() {
-        return location;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLocation(String[] location) {
-        this.location = location;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 }

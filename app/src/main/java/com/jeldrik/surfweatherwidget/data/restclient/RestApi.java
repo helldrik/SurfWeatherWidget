@@ -1,4 +1,4 @@
-package com.jeldrik.surfweatherwidget.data.datasource;
+package com.jeldrik.surfweatherwidget.data.restclient;
 
 import com.jeldrik.surfweatherwidget.data.model.CurrentWeather;
 import com.jeldrik.surfweatherwidget.data.model.WeatherForecast;
