@@ -26,6 +26,7 @@ public class Main extends Application {
 
         mainPresenter = new MainPresenter();
         mainPresenter.initInjection(applicationComponent);
+        mainPresenter.create();
 
     }
 

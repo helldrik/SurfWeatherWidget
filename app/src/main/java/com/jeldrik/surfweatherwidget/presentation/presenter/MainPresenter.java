@@ -20,24 +20,28 @@ public class MainPresenter {
     CurrentWeatherRepository currentWeatherRepository;
 
     public MainPresenter() {
-        currentWeatherRepository.getCurrentWeather(new CurrentWeatherRepository.CurrentWeatherCallback() {
-            @Override
-            public void onSuccess(@NonNull CurrentWeather currentWeather) {
-
-            }
-
-            @Override
-            public void onError() {
-
-            }
-        });
     }
-
     /**
      * Initializes the dependency injection for this class.
      *
      */
     public void initInjection(ApplicationComponent applicationComponent) {
         applicationComponent.inject(this);
+    }
+
+    public void create() {
+        if (currentWeatherRepository != null) {
+            currentWeatherRepository.getCurrentWeather(new CurrentWeatherRepository.CurrentWeatherCallback() {
+                @Override
+                public void onSuccess(@NonNull CurrentWeather currentWeather) {
+
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
+        }
     }
 }
