@@ -1,9 +1,11 @@
 package com.jeldrik.surfweatherwidget.presentation.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.jeldrik.surfweatherwidget.common.Dagger.components.ApplicationComponent;
 import com.jeldrik.surfweatherwidget.data.model.CurrentWeather;
+import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
 import com.jeldrik.surfweatherwidget.domain.repository.CurrentWeatherRepository;
 import com.jeldrik.surfweatherwidget.presentation.Main;
 
@@ -17,7 +19,8 @@ public class MainPresenter {
 
 
     @Inject
-    CurrentWeatherRepository currentWeatherRepository;
+    CurrentWeatherInteractor currentWeatherInteractor;
+
 
     public MainPresenter() {
     }
@@ -30,16 +33,16 @@ public class MainPresenter {
     }
 
     public void create() {
-        if (currentWeatherRepository != null) {
-            currentWeatherRepository.getCurrentWeather(new CurrentWeatherRepository.CurrentWeatherCallback() {
+        if (currentWeatherInteractor != null) {
+            currentWeatherInteractor.execute(new CurrentWeatherInteractor.Callback() {
                 @Override
                 public void onSuccess(@NonNull CurrentWeather currentWeather) {
-
+                    Log.d("MainPresenter", currentWeather.toString());
                 }
 
                 @Override
                 public void onError() {
-
+                    Log.d("MainPresenter", "an Error accured");
                 }
             });
         }

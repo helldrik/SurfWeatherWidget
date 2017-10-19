@@ -13,8 +13,10 @@ import retrofit2.http.Query;
 
 public interface RestApi {
 
+
+
     @GET("weather")
-    Call<CurrentWeather> loadCurrentWeatherByGeoLocation(@Query("lat") String latitude, @Query("lon") String longitude);
+    Call<CurrentWeather> loadCurrentWeatherByGeoLocation(@Query("lat") String latitude, @Query("lon") String longitude, @Query("APPID") String apiKey);
 
     @GET("weather")
     Call<CurrentWeather> loadCurrentWeatherByZipCode(@Query("zip") String zipCodePlusCountryCode);
