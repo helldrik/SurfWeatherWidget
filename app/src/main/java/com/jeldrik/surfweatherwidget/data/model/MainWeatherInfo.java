@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by jeldrik on 17/10/17.
  */
 
-class MainWeatherInfo {
+public class MainWeatherInfo {
 
     @JsonProperty("humidity")
     private String humidity;

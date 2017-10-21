@@ -14,7 +14,6 @@ import com.jeldrik.surfweatherwidget.presentation.presenter.MainPresenter;
 public class Main extends Application {
 
     private ApplicationComponent applicationComponent;
-    private MainPresenter mainPresenter;
 
     @Override
     public void onCreate() {
@@ -23,10 +22,6 @@ public class Main extends Application {
         applicationComponent = DaggerApplicationComponent.builder()
                 .appModule(new AppModule(this))
                 .build();
-
-        mainPresenter = new MainPresenter();
-        mainPresenter.initInjection(applicationComponent);
-        mainPresenter.create();
 
     }
 

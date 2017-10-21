@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name ="primary_big_number">40dp</dimen>
+    <dimen name ="secondary_big_number">25dp</dimen>
+    <dimen name="normal">15dp</dimen>
+</resources>

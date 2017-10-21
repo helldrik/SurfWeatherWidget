@@ -15,7 +15,7 @@ public class LocalLocationDataSource {
 
     public LocalLocationDataSource() {
         latitude = "40.4168";
-        longitude = "3.7038";
+        longitude = "-3.7038";
     }
 
     public String getCity() {

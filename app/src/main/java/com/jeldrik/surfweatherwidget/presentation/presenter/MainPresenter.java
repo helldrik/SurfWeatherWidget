@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.jeldrik.surfweatherwidget.common.Dagger.components.ApplicationComponent;
 import com.jeldrik.surfweatherwidget.data.model.CurrentWeather;
+import com.jeldrik.surfweatherwidget.data.model.MainWeatherInfo;
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
-import com.jeldrik.surfweatherwidget.domain.repository.CurrentWeatherRepository;
-import com.jeldrik.surfweatherwidget.presentation.Main;
+import com.jeldrik.surfweatherwidget.presentation.view.MainView;
 
 import javax.inject.Inject;
 
@@ -17,19 +17,13 @@ import javax.inject.Inject;
 
 public class MainPresenter {
 
-
-    @Inject
     CurrentWeatherInteractor currentWeatherInteractor;
 
+    MainView view;
 
-    public MainPresenter() {
-    }
-    /**
-     * Initializes the dependency injection for this class.
-     *
-     */
-    public void initInjection(ApplicationComponent applicationComponent) {
-        applicationComponent.inject(this);
+    @Inject
+    public MainPresenter(CurrentWeatherInteractor currentWeatherInteractor) {
+        this.currentWeatherInteractor = currentWeatherInteractor;
     }
 
     public void create() {
@@ -37,7 +31,11 @@ public class MainPresenter {
             currentWeatherInteractor.execute(new CurrentWeatherInteractor.Callback() {
                 @Override
                 public void onSuccess(@NonNull CurrentWeather currentWeather) {
-                    Log.d("MainPresenter", currentWeather.toString());
+                    MainWeatherInfo mainWeatherInfo = currentWeather.getMain();
+
+                    setCurrentTemp(mainWeatherInfo.getTemp());
+                    setMinTemp(mainWeatherInfo.getTemp_min());
+                    setMaxTemp(mainWeatherInfo.getTemp_max());
                 }
 
                 @Override
@@ -46,5 +44,27 @@ public class MainPresenter {
                 }
             });
         }
+    }
+
+    public void setView(MainView view){
+        this.view = view;
+    }
+
+    private void setCurrentTemp(String currentTemp) {
+        view.setCurrentTemp(convertKelvinToCelcius(currentTemp));
+    }
+
+    private void setMinTemp(String minTemp) {
+        view.setMinTemp(convertKelvinToCelcius(minTemp));
+    }
+
+    private void setMaxTemp(String minTemp) {
+        view.setMaxTemp(convertKelvinToCelcius(minTemp));
+    }
+
+    private String convertKelvinToCelcius(String kelvin) {
+        double kelvinAsNumber = Double.parseDouble(kelvin);
+        double celcius = kelvinAsNumber - 273.15;
+        return Double.toString(celcius);
     }
 }

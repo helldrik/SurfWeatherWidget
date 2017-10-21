@@ -5,4 +5,9 @@ package com.jeldrik.surfweatherwidget.presentation.view;
  */
 
 public interface MainView {
+    void setCurrentTemp(String s);
+
+    void setMinTemp(String s);
+
+    void setMaxTemp(String s);
 }
