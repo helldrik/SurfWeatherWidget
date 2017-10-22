@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SurfWeatherWidget</string>
+    <string name="current_temp">%s°C</string>
+    <string name="min_temp">Minimum: %s°C</string>
+    <string name="max_temp">Maximum: %s°C</string>
 </resources>

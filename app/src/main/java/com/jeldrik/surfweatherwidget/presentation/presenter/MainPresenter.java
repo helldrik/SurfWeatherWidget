@@ -6,6 +6,7 @@ import android.util.Log;
 import com.jeldrik.surfweatherwidget.common.Dagger.components.ApplicationComponent;
 import com.jeldrik.surfweatherwidget.data.model.CurrentWeather;
 import com.jeldrik.surfweatherwidget.data.model.MainWeatherInfo;
+import com.jeldrik.surfweatherwidget.data.model.Weather;
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
 import com.jeldrik.surfweatherwidget.presentation.view.MainView;
 
@@ -32,10 +33,15 @@ public class MainPresenter {
                 @Override
                 public void onSuccess(@NonNull CurrentWeather currentWeather) {
                     MainWeatherInfo mainWeatherInfo = currentWeather.getMain();
-
-                    setCurrentTemp(mainWeatherInfo.getTemp());
-                    setMinTemp(mainWeatherInfo.getTemp_min());
-                    setMaxTemp(mainWeatherInfo.getTemp_max());
+                    if (mainWeatherInfo != null) {
+                        setCurrentTemp(mainWeatherInfo.getTemp());
+                        setMinTemp(mainWeatherInfo.getTemp_min());
+                        setMaxTemp(mainWeatherInfo.getTemp_max());
+                    }
+                    Weather weather = currentWeather.getWeather()[0];
+                    if (weather != null) {
+                        setCondition(weather.getDescription());
+                    }
                 }
 
                 @Override
@@ -46,7 +52,7 @@ public class MainPresenter {
         }
     }
 
-    public void setView(MainView view){
+    public void setView(MainView view) {
         this.view = view;
     }
 
@@ -62,9 +68,14 @@ public class MainPresenter {
         view.setMaxTemp(convertKelvinToCelcius(minTemp));
     }
 
+    private void setCondition(String condition) {
+        view.setCondition(condition);
+    }
+
     private String convertKelvinToCelcius(String kelvin) {
         double kelvinAsNumber = Double.parseDouble(kelvin);
-        double celcius = kelvinAsNumber - 273.15;
-        return Double.toString(celcius);
+        double celcius = (double)(Math.round(10 * (kelvinAsNumber - 273.15))) / 10;
+        String formattedTemp = Double.toString(celcius);
+        return formattedTemp.replace(".0","");
     }
 }

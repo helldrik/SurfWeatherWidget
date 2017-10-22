@@ -10,4 +10,6 @@ public interface MainView {
     void setMinTemp(String s);
 
     void setMaxTemp(String s);
+
+    void setCondition(String condition);
 }
