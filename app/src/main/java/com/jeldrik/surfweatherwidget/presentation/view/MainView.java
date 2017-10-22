@@ -12,4 +12,12 @@ public interface MainView {
     void setMaxTemp(String s);
 
     void setCondition(String condition);
+
+    void setWind(String wind);
+
+    void setHumidity(String humidity);
+
+    void setSunrise(String s);
+
+    void setSunset(String s);
 }

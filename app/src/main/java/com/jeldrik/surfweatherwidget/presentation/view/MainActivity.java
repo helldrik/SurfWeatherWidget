@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
     TextView maxTemp;
     @BindView(R.id.condition)
     TextView condition;
+    @BindView(R.id.wind)
+    TextView wind;
+    @BindView(R.id.humidity)
+    TextView humidity;
+    @BindView(R.id.sunrise)
+    TextView sunrise;
+    @BindView(R.id.sunset)
+    TextView sunset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,5 +79,25 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void setCondition(String s) {
         condition.setText(s);
+    }
+
+    @Override
+    public void setWind(String s) {
+        wind.setText(String.format(getString(R.string.wind_value), s));
+    }
+
+    @Override
+    public void setHumidity(String s) {
+        humidity.setText(String.format(getString(R.string.humidity_value), s));
+    }
+
+    @Override
+    public void setSunrise(String s) {
+        sunrise.setText(String.format(getString(R.string.sunrise), s));
+    }
+
+    @Override
+    public void setSunset(String s) {
+        sunset.setText(String.format(getString(R.string.sunset), s));
     }
 }
