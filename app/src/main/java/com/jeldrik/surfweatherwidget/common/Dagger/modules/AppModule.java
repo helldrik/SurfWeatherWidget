@@ -3,6 +3,7 @@ package com.jeldrik.surfweatherwidget.common.Dagger.modules;
 import android.app.Application;
 
 import com.jeldrik.surfweatherwidget.data.datasource.LocalLocationDataSource;
+import com.jeldrik.surfweatherwidget.data.datasource.OpenWeatherCachedDataSource;
 import com.jeldrik.surfweatherwidget.data.datasource.OpenWeatherNetworkDataSource;
 import com.jeldrik.surfweatherwidget.data.repository.CurrentWeatherRepositoryImpl;
 import com.jeldrik.surfweatherwidget.domain.executors.PostExecutionThread;
@@ -60,6 +61,11 @@ public class AppModule {
     @Singleton
     LocalLocationDataSource providesLocalLocationDataSource(){
         return new LocalLocationDataSource();
+    }
+    @Provides
+    @Singleton
+    OpenWeatherCachedDataSource openWeatherCachedDataSource(){
+        return new OpenWeatherCachedDataSource();
     }
     @Provides
     @Singleton

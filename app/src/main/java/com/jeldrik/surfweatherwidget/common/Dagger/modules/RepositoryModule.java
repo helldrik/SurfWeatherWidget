@@ -1,5 +1,6 @@
 package com.jeldrik.surfweatherwidget.common.Dagger.modules;
 
+import com.jeldrik.surfweatherwidget.data.datasource.OpenWeatherCachedDataSource;
 import com.jeldrik.surfweatherwidget.data.datasource.OpenWeatherNetworkDataSource;
 import com.jeldrik.surfweatherwidget.data.repository.CurrentWeatherRepositoryImpl;
 import com.jeldrik.surfweatherwidget.domain.repository.CurrentWeatherRepository;
@@ -17,7 +18,7 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    CurrentWeatherRepository providesCurrentWeatherRepository(OpenWeatherNetworkDataSource openWeatherNetworkDataSource){
-        return new CurrentWeatherRepositoryImpl(openWeatherNetworkDataSource);
+    CurrentWeatherRepository providesCurrentWeatherRepository(OpenWeatherNetworkDataSource openWeatherNetworkDataSource, OpenWeatherCachedDataSource openWeatherCachedDataSource){
+        return new CurrentWeatherRepositoryImpl(openWeatherNetworkDataSource, openWeatherCachedDataSource);
     }
 }

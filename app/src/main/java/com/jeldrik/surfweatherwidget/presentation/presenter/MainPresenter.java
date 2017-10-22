@@ -29,27 +29,40 @@ public class MainPresenter {
 
     public void create() {
         if (currentWeatherInteractor != null) {
-            currentWeatherInteractor.execute(new CurrentWeatherInteractor.Callback() {
+            final android.os.Handler handler = new android.os.Handler();
+            Runnable runnable = new Runnable() {
                 @Override
-                public void onSuccess(@NonNull CurrentWeather currentWeather) {
-                    MainWeatherInfo mainWeatherInfo = currentWeather.getMain();
-                    if (mainWeatherInfo != null) {
-                        setCurrentTemp(mainWeatherInfo.getTemp());
-                        setMinTemp(mainWeatherInfo.getTemp_min());
-                        setMaxTemp(mainWeatherInfo.getTemp_max());
-                    }
-                    Weather weather = currentWeather.getWeather()[0];
-                    if (weather != null) {
-                        setCondition(weather.getDescription());
-                    }
+                public void run() {
+                    loadData();
+                    handler.postDelayed(this,600000);
                 }
-
-                @Override
-                public void onError() {
-                    Log.d("MainPresenter", "an Error accured");
-                }
-            });
+            };
+            handler.post(runnable);
         }
+
+    }
+
+    private void loadData(){
+        currentWeatherInteractor.execute(new CurrentWeatherInteractor.Callback() {
+            @Override
+            public void onSuccess(@NonNull CurrentWeather currentWeather) {
+                MainWeatherInfo mainWeatherInfo = currentWeather.getMain();
+                if (mainWeatherInfo != null) {
+                    setCurrentTemp(mainWeatherInfo.getTemp());
+                    setMinTemp(mainWeatherInfo.getTemp_min());
+                    setMaxTemp(mainWeatherInfo.getTemp_max());
+                }
+                Weather weather = currentWeather.getWeather()[0];
+                if (weather != null) {
+                    setCondition(weather.getDescription());
+                }
+            }
+
+            @Override
+            public void onError() {
+                Log.d("MainPresenter", "an Error accured");
+            }
+        });
     }
 
     public void setView(MainView view) {
