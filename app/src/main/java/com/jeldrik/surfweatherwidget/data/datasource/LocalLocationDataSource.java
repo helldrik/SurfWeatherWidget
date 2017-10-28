@@ -22,6 +22,9 @@ public class LocalLocationDataSource {
         country = sharedPrefsLocalDataSource.getString("country");
         longitude = sharedPrefsLocalDataSource.getString("longitude");
         latitude = sharedPrefsLocalDataSource.getString("latitude");
+        //TODO delete these lines
+        latitude = "40.4168";
+        longitude = "-3.7038";
     }
 
     public String getCity() {

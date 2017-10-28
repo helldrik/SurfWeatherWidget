@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by jeldrik on 17/10/17.
  */
 
-class Wind {
+public class Wind {
     @JsonProperty("speed")
     private String speed;
 

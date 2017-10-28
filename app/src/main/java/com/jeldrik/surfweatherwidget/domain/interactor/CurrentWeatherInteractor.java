@@ -1,4 +1,4 @@
-package com.jeldrik.surfweatherwidget.domain.repository;
+package com.jeldrik.surfweatherwidget.domain.interactor;
 
 import android.support.annotation.NonNull;
 
@@ -8,12 +8,12 @@ import com.jeldrik.surfweatherwidget.data.model.CurrentWeather;
  * @author Madrid Tech Lab on 19/10/2017.
  */
 
-public interface CurrentWeatherRepository {
+public interface CurrentWeatherInteractor {
 
     /**
-     * Callback
+            * Callback
      */
-    interface CurrentWeatherCallback {
+    interface Callback {
 
         /**
          * Called when the  information is received.
@@ -25,5 +25,5 @@ public interface CurrentWeatherRepository {
          */
         void onError();
     }
-    void getCurrentWeather(CurrentWeatherCallback callback);
+    void execute(Callback callback);
 }
