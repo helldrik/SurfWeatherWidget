@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.jeldrik.surfweatherwidget.data.datasource.LocalLocationDataSource;
 import com.jeldrik.surfweatherwidget.data.datasource.OpenWeatherNetworkDataSource;
+import com.jeldrik.surfweatherwidget.data.datasource.SharedPrefsLocalDataSource;
 import com.jeldrik.surfweatherwidget.data.repository.CurrentWeatherRepositoryImpl;
 import com.jeldrik.surfweatherwidget.domain.repository.CurrentWeatherRepository;
 import com.jeldrik.surfweatherwidget.presentation.presenter.MainPresenter;
@@ -29,6 +30,12 @@ public class AppModule {
     @Singleton
     Application providesApplication() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    SharedPrefsLocalDataSource providesSharedPrefsLocalDataSource() {
+        return new SharedPrefsLocalDataSource(mApplication);
     }
 
     @Provides
