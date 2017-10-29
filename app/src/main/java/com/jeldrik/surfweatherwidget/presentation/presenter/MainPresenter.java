@@ -10,6 +10,7 @@ import com.jeldrik.surfweatherwidget.data.model.Sys;
 import com.jeldrik.surfweatherwidget.data.model.Weather;
 import com.jeldrik.surfweatherwidget.data.model.Wind;
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
+import com.jeldrik.surfweatherwidget.presentation.controller.PeriodicUpdateController;
 import com.jeldrik.surfweatherwidget.presentation.view.MainView;
 
 import java.security.Timestamp;
@@ -25,30 +26,21 @@ import javax.inject.Inject;
 public class MainPresenter {
 
     CurrentWeatherInteractor currentWeatherInteractor;
+    PeriodicUpdateController periodicUpdateController;
 
     MainView view;
 
     @Inject
-    public MainPresenter(CurrentWeatherInteractor currentWeatherInteractor) {
+    public MainPresenter(CurrentWeatherInteractor currentWeatherInteractor, PeriodicUpdateController periodicUpdateController) {
         this.currentWeatherInteractor = currentWeatherInteractor;
+        this.periodicUpdateController = periodicUpdateController;
     }
 
     public void create() {
-        if (currentWeatherInteractor != null) {
-            final android.os.Handler handler = new android.os.Handler();
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    loadData();
-                    handler.postDelayed(this, 600000);
-                }
-            };
-            handler.post(runnable);
-        }
-
+        periodicUpdateController.setMainPresenter(this);
     }
 
-    private void loadData() {
+    public void loadData() {
         currentWeatherInteractor.execute(new CurrentWeatherInteractor.Callback() {
             @Override
             public void onSuccess(@NonNull CurrentWeather currentWeather) {

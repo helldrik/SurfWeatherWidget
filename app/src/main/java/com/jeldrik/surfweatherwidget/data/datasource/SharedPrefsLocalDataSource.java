@@ -18,6 +18,12 @@ public class SharedPrefsLocalDataSource {
         sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
     }
 
+    public void save(String key, boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
     public void save(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
@@ -45,6 +51,8 @@ public class SharedPrefsLocalDataSource {
     public String getString(String key) {
         return sharedPreferences.getString(key, "");
     }
+
+    public Boolean getBoolean(String key) { return sharedPreferences.getBoolean(key, false); }
 
     public int getInt(String key) {
         return sharedPreferences.getInt(key, 0);

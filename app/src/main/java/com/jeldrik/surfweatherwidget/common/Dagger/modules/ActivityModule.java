@@ -1,6 +1,7 @@
 package com.jeldrik.surfweatherwidget.common.Dagger.modules;
 
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
+import com.jeldrik.surfweatherwidget.presentation.controller.PeriodicUpdateController;
 import com.jeldrik.surfweatherwidget.presentation.presenter.MainPresenter;
 
 import dagger.Module;
@@ -13,7 +14,7 @@ import dagger.Provides;
 public class ActivityModule {
 
     @Provides
-    MainPresenter providesMainPresenter(CurrentWeatherInteractor currentWeatherInteractor){
-        return new MainPresenter(currentWeatherInteractor);
+    MainPresenter providesMainPresenter(CurrentWeatherInteractor currentWeatherInteractor, PeriodicUpdateController periodicUpdateController){
+        return new MainPresenter(currentWeatherInteractor, periodicUpdateController);
     }
 }

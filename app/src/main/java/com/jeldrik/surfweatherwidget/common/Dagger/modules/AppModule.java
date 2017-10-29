@@ -1,6 +1,7 @@
 package com.jeldrik.surfweatherwidget.common.Dagger.modules;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.jeldrik.surfweatherwidget.data.datasource.LocalLocationDataSource;
 import com.jeldrik.surfweatherwidget.data.datasource.OpenWeatherCachedDataSource;
@@ -11,7 +12,11 @@ import com.jeldrik.surfweatherwidget.domain.executors.PostExecutionThread;
 import com.jeldrik.surfweatherwidget.domain.executors.ThreadExecutor;
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherUseCase;
+import com.jeldrik.surfweatherwidget.domain.interactor.GetGeoLocationInteractor;
+import com.jeldrik.surfweatherwidget.domain.interactor.GetGeoLocationUseCase;
 import com.jeldrik.surfweatherwidget.domain.repository.CurrentWeatherRepository;
+import com.jeldrik.surfweatherwidget.domain.repository.GeoLocationRepository;
+import com.jeldrik.surfweatherwidget.presentation.controller.PeriodicUpdateController;
 import com.jeldrik.surfweatherwidget.presentation.executor.BackgroundExecutor;
 import com.jeldrik.surfweatherwidget.presentation.executor.UiThread;
 import com.jeldrik.surfweatherwidget.presentation.presenter.MainPresenter;
@@ -37,6 +42,12 @@ public class AppModule {
     @Singleton
     Application providesApplication() {
         return mApplication;
+    }
+
+    @Provides
+    @Singleton
+    Context providesContext(){
+        return mApplication.getApplicationContext();
     }
 
     @Provides
@@ -78,5 +89,17 @@ public class AppModule {
     @Singleton
     CurrentWeatherInteractor providesCurrentWeatherInteractor(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, CurrentWeatherRepository currentWeatherRepository){
         return new CurrentWeatherUseCase(threadExecutor, postExecutionThread, currentWeatherRepository );
+    }
+
+    @Provides
+    @Singleton
+    GetGeoLocationInteractor providesGeoLocationInteractor(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread, GeoLocationRepository geoLocationRepository){
+        return new GetGeoLocationUseCase(threadExecutor, postExecutionThread, geoLocationRepository);
+    }
+
+    @Provides
+    @Singleton
+    PeriodicUpdateController providesPeriodicUpdateController(GetGeoLocationInteractor getGeoLocationInteractor){
+        return new PeriodicUpdateController(getGeoLocationInteractor);
     }
 }

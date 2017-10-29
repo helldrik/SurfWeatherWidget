@@ -3,6 +3,7 @@ package com.jeldrik.surfweatherwidget.common.Dagger.components;
 import com.jeldrik.surfweatherwidget.common.Dagger.modules.AppModule;
 import com.jeldrik.surfweatherwidget.common.Dagger.modules.RepositoryModule;
 import com.jeldrik.surfweatherwidget.domain.interactor.CurrentWeatherInteractor;
+import com.jeldrik.surfweatherwidget.domain.interactor.GetGeoLocationInteractor;
 import com.jeldrik.surfweatherwidget.domain.repository.CurrentWeatherRepository;
 import com.jeldrik.surfweatherwidget.presentation.presenter.MainPresenter;
 
@@ -18,6 +19,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     CurrentWeatherInteractor currentWeatherInteractor();
+    GetGeoLocationInteractor getGeoLocationInteractor();
 
     void inject(MainPresenter controller);
 }
