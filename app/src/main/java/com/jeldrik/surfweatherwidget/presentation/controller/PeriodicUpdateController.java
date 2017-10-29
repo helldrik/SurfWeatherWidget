@@ -22,6 +22,7 @@ public class PeriodicUpdateController {
     @Inject
     public PeriodicUpdateController(@NonNull GetGeoLocationInteractor geoLocationInteractor) {
         this.geoLocationInteractor = geoLocationInteractor;
+        this.onCreate();
     }
 
     public void onCreate(){
@@ -31,7 +32,9 @@ public class PeriodicUpdateController {
                     @Override
                     public void run() {
                         loadData();
-                        mainPresenter.loadData();
+                        if(mainPresenter != null) {
+                            mainPresenter.loadData();
+                        }
                         handler.postDelayed(this, 600000);
                     }
                 };
@@ -57,6 +60,5 @@ public class PeriodicUpdateController {
 
     public void setMainPresenter(MainPresenter mainPresenter) {
         this.mainPresenter = mainPresenter;
-        this.onCreate();
     }
 }
