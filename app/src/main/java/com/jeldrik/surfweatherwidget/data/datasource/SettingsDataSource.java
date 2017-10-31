@@ -1,5 +1,8 @@
 package com.jeldrik.surfweatherwidget.data.datasource;
 
+import android.support.annotation.NonNull;
+
+import com.jeldrik.surfweatherwidget.domain.repository.SettingsRepository;
 import javax.inject.Inject;
 
 /**
@@ -12,27 +15,24 @@ public class SettingsDataSource {
 
     private SharedPrefsLocalDataSource sharedPrefsLocalDataSource;
 
-    public enum LocationType{
-        CITY,
-        GEO_LOCATION,
-        ZIP_CODE,
-        UNKNOWN
-    }
+
 
     @Inject
-    public SettingsDataSource(SharedPrefsLocalDataSource sharedPrefsLocalDataSource) {
+    public SettingsDataSource(@NonNull SharedPrefsLocalDataSource sharedPrefsLocalDataSource) {
         this.sharedPrefsLocalDataSource = sharedPrefsLocalDataSource;
+        //default locationType
+        setLocationType(SettingsRepository.LocationType.GEO_LOCATION);
     }
 
-    public LocationType getLocationType(){
+    public SettingsRepository.LocationType getLocationType(){
         try{
-            return LocationType.valueOf(sharedPrefsLocalDataSource.getString("locationType"));
+            return SettingsRepository.LocationType.valueOf(sharedPrefsLocalDataSource.getString("locationType"));
         } catch (IllegalArgumentException e) {
-            return LocationType.UNKNOWN;
+            return SettingsRepository.LocationType.UNKNOWN;
         }
     }
 
-    public void setLocationType(LocationType locationType){
+    public void setLocationType(SettingsRepository.LocationType locationType){
         sharedPrefsLocalDataSource.save("locationType", locationType.toString());
     }
 
